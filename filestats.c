@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     while ((dir = readdir(d)) != NULL) {
         struct stat tempFile;
         printf("File name: %s\n", dir->d_name);
-        stat(dir->d_name, &tempFile);
+        stat(argv[1], &tempFile);
         printf("inode number: %d\n", (int) tempFile.st_ino);
         printf("number of links: %ld\n", (long) tempFile.st_nlink);
         printf("User id of owner: %ld\n", (long) tempFile.st_uid);
@@ -39,8 +39,7 @@ int main(int argc, char *argv[])
         printf("Last status change: %s", ctime(stime));
 
         printf("Number of disk blocks allocated: %ld\n", (long) tempFile.st_blocks);
-        //unsigned int mode =  tempFile.st_mode & (S_IRWXU | S_IRWXG | S_IRWXO);
-        printf("Access mode in octal: %lo\n", (unsigned long) tempFile.st_mode);
+        printf("Access mode in octal: %o \n", tempFile.st_mode);
 
         printf("Access mode flags: ");
         printf( (tempFile.st_mode & S_IRUSR) ? "r" : "-");

@@ -10,16 +10,20 @@
 int main(int argc, char *argv[])
 {
     if (argc < 2) {
-        printf("Too few arguments\n");
+        printf("usage: filestats directory_name\n");
         return 0;
     }
-
+    else if(access(argv[1], F_OK) == -1) {
+        printf("can't open %s\n", argv[1]);
+        return 0;
+    }
 
     DIR* d;
     struct dirent* dir;
     d = opendir(argv[1]);
     
     while ((dir = readdir(d)) != NULL) {
+        
         struct stat tempFile;
         printf("File name: %s\n", dir->d_name);
         stat(argv[1], &tempFile);
